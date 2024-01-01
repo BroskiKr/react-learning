@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Counter from "./components/counter";
+import ClassCounter from "./components/classCounter";
 
 function App() {
+  const [value, setValue] = useState('Текст в инпуте')
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Counter />
+      <Counter />
+      <Counter />
+      <ClassCounter />
+      <h1>{value}</h1>
+      <input
+        type="text"
+        value={value}
+        onChange={event => setValue(event.target.value)}
+      />
     </div>
   );
 }
