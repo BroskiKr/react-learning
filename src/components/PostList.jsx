@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import PostItem from "./PostItem";
 
 const PostList = ({ posts, title, remove }) => {
+  if (!posts.length) {
+    return (
+      <h1 style={{ textAlign: 'center', fontSize: '36px', fontWeight: '700' }}>Разраби підараси</h1>
+    )
+  }
+
   return (
     <div>
       <h1 style={{ textAlign: 'center' }} className='title'>{title}</h1>

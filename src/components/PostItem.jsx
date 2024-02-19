@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MyButton from "./Ui/button/MyButton";
 
 const PostItem = (props) => {
