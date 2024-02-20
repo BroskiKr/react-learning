@@ -1,17 +1,24 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './styles/App.css'
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
 import MyModal from "./components/Ui/MyModal/MyModal";
 import MyButton from "./components/Ui/button/MyButton";
+import { usePosts } from "./hooks/usePosts";
+import PostService from "./API/PostService";
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'cc', body: 'bb', },
-    { id: 2, title: 'aa', body: 'cc', },
-    { id: 3, title: 'bb', body: 'aa', }
-  ])
+  const [posts, setPosts] = useState([])
+
+  async function fetchPosts() {
+    const posts = await PostService.getAll();
+    setPosts(posts)
+  }
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -23,19 +30,9 @@ function App() {
   }
 
   const [filter, setFilter] = useState({ sort: '', query: '' })
-
   const [modal, setModal] = useState(false)
 
-  const sortedPosts = useMemo(() => {
-    if (filter.sort) {
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-    }
-    return posts;
-  }, [filter.sort, posts])
-
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
-  }, [filter.query, sortedPosts])
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   return (
     <div className="App">
