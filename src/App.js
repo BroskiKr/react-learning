@@ -7,14 +7,19 @@ import MyModal from "./components/Ui/MyModal/MyModal";
 import MyButton from "./components/Ui/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
 import PostService from "./API/PostService";
+import Loader from "./components/Ui/Loader/Loader";
+import { useFetching } from "./hooks/useFetching";
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [filter, setFilter] = useState({ sort: '', query: '' })
+  const [modal, setModal] = useState(false)
 
-  async function fetchPosts() {
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
     const posts = await PostService.getAll();
     setPosts(posts)
-  }
+  })
+
 
   useEffect(() => {
     fetchPosts()
@@ -29,9 +34,6 @@ function App() {
     setPosts(posts.filter(p => p.id !== post.id))
   }
 
-  const [filter, setFilter] = useState({ sort: '', query: '' })
-  const [modal, setModal] = useState(false)
-
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   return (
@@ -42,7 +44,11 @@ function App() {
       </MyModal>
       <hr style={{ margin: '15px 0' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Пости про js' />
+      {postError && <h1 style={{ fontSize: 50, textAlign: 'center', margin: '15px 0 15px 0' }} >Сталася помилка: {postError}</h1>}
+      {isPostsLoading
+        ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
+        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Пости про js' />
+      }
     </div >
   );
 }
