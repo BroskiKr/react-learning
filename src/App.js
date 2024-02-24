@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import './styles/App.css'
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
@@ -9,15 +9,25 @@ import { usePosts } from "./hooks/usePosts";
 import PostService from "./API/PostService";
 import Loader from "./components/Ui/Loader/Loader";
 import { useFetching } from "./hooks/useFetching";
+import { getPageCount } from "./utils/pages";
+import { usePagination } from "./hooks/usePagination";
 
 function App() {
   const [posts, setPosts] = useState([])
   const [filter, setFilter] = useState({ sort: '', query: '' })
   const [modal, setModal] = useState(false)
+  const [totalPages, setTotalPages] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+  let pagesArray = usePagination(totalPages)
+
+  console.log(pagesArray)
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
-    const posts = await PostService.getAll();
-    setPosts(posts)
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data)
+    const totalCount = response.headers['x-total-count']
+    setTotalPages(getPageCount(totalCount, limit))
   })
 
 
@@ -49,6 +59,7 @@ function App() {
         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Пости про js' />
       }
+      {pagesArray.map(p => <MyButton style={{ margin: '10px 7px 5px 0px' }}>{p}</MyButton>)}
     </div >
   );
 }
