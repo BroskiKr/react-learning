@@ -1,11 +1,11 @@
-import styles from './Navbar.module.css';
 import { Link } from 'react-router-dom'
+import styles from './Navbar.module.css';
 
 const Navbar = (props) => {
   return (
-    <div className="navbar">
-      <Link className="navbar__link" to='/about'>Про нас</Link>
-      <Link className="navbar__link" to='/posts'>Список користувачів</Link>
+    <div className={styles.navbar}>
+      <Link className={styles.navbar__link} to='/about'>Про нас</Link>
+      <Link className={styles.navbar__link} to='/posts'>Список користувачів</Link>
     </div>
   );
 }

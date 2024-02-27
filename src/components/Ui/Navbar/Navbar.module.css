@@ -8,5 +8,8 @@
 }
 
 .navbar__link{
-  margin-right: 10px;
+  margin-right: 20px;
+  color:teal;
+  font-size: 20px;
+  letter-spacing: 1px;
 }

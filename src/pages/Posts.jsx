@@ -19,7 +19,6 @@ function Posts() {
   const [totalPages, setTotalPages] = useState(0)
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
-  const [lastPostId, setLastPostId] = useState(0)
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page);
@@ -31,12 +30,6 @@ function Posts() {
   useEffect(() => {
     fetchPosts(limit, page)
   }, [])
-
-  useEffect(() => {
-    setLastPostId(posts)
-    console.log(lastPostId)
-  }, [posts])
-
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -58,7 +51,7 @@ function Posts() {
     <div className="App">
       <MyButton style={{ marginTop: 5 }} onClick={() => setModal(true)}>Створити користувача</MyButton>
       <MyModal visible={modal} setVisible={setModal}>
-        <PostForm lastPostId={lastPostId} create={createPost} />
+        <PostForm create={createPost} />
       </MyModal>
       <hr style={{ margin: '15px 0' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
