@@ -57,3 +57,7 @@ select{
 	font-weight: bold;
 }
 
+.post__btns{
+	display: flex;
+}
+

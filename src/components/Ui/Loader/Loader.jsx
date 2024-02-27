@@ -1,6 +1,6 @@
 import styles from './Loader.module.css';
 
-const Loader = (props) => {
+const Loader = () => {
   return (
     <div className={styles.loader}></div>
   );
