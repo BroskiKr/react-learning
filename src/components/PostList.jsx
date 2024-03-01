@@ -6,7 +6,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 const PostList = ({ posts, title, remove }) => {
   if (!posts.length) {
     return (
-      <h1 style={{ textAlign: 'center', fontSize: '36px', fontWeight: '700' }}>Разраби підараси</h1>
+      <h1 style={{ textAlign: 'center', fontSize: '36px', fontWeight: '700' }}>Користувача не знайдені</h1>
     )
   }
 

@@ -60,7 +60,7 @@ function Posts() {
         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Пости про js' />
       }
-      <Pagination totalPages={totalPages} page={page} changePage={changePage} />
+      <Pagination setFilter={setFilter} totalPages={totalPages} page={page} changePage={changePage} />
     </div >
   );
 }
