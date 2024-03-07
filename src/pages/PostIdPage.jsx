@@ -18,7 +18,6 @@ const PostIdPage = () => {
   const [fetchComments, isComLoading, comError] = useFetching(async (id) => {
     const response = await PostService.getCommentsByPostId(id)
     setComments(response.data)
-    console.log(response.data)
   })
 
   useEffect(() => {
@@ -36,7 +35,7 @@ const PostIdPage = () => {
       {isLoading
         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
         : <>{comments.map((com) =>
-          <div style={{ marginTop: 10 }}>
+          <div key={com.email} style={{ marginTop: 10 }}>
             <h2>{com.email}</h2>
             <p>{com.body}</p>
           </div>

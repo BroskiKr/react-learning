@@ -1,7 +1,7 @@
 
 const About = (props) => {
   return (
-    <div>Сторінка about</div>
+    <div style={{ fontSize: 40, fontWeight: 'bold' }}>Сторінка about</div>
   );
 }
 
