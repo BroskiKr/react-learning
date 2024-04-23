@@ -39,8 +39,8 @@ function Posts() {
     fetchPosts(limit, page)
   }, [page, limit])
 
-  const createPost = (newPost) => {
-    setPosts([...posts, newPost])
+  const createPost = async (newPost) => {
+    await setPosts([...posts, newPost])
     setModal(false)
   }
 

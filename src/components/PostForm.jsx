@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import MyInput from './Ui/input/MyInput'
 import MyButton from './Ui/button/MyButton'
+import PostService from "../API/PostService";
 
-const PostForm = ({ create, lastPostId }) => {
+const PostForm = ({ create }) => {
   const [post, setPost] = useState({ title: '', body: '' })
 
-  const addNewPost = (e) => {
+  const addNewPost = async (e) => {
     e.preventDefault()
-    const newPost = {
-      ...post, id: Date.now(),
+    if (post.title == false || post.body == false) {
+      return 0
     }
+    const newPost = await PostService.createPost(post)
     create(newPost)
     setPost({ title: '', body: '' })
   }

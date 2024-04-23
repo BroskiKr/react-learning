@@ -1,6 +1,12 @@
 import React from "react";
 import MyButton from "./Ui/button/MyButton";
 import { useNavigate } from "react-router-dom";
+import PostService from "../API/PostService";
+
+const deletePost = async (post, removePost) => {
+  await PostService.deletePost(post.id)
+  removePost(post)
+}
 
 const PostItem = (props) => {
   const router = useNavigate()
@@ -14,7 +20,7 @@ const PostItem = (props) => {
       </div>
       <div className="post__btns">
         <MyButton onClick={() => router(`/posts/${props.post.id}`)}>Open</MyButton>
-        <MyButton onClick={() => props.remove(props.post)}>Delete</MyButton>
+        <MyButton onClick={() => deletePost(props.post, props.remove)}>Delete</MyButton>
       </div>
     </div>
   )
