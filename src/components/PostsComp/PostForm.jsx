@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import MyInput from './Ui/input/MyInput'
-import MyButton from './Ui/button/MyButton'
-import PostService from "../API/PostService";
+import MyInput from '../Ui/input/MyInput'
+import MyButton from '../Ui/button/MyButton'
 
 const PostForm = ({ create }) => {
   const [post, setPost] = useState({ title: '', body: '' })
@@ -11,8 +10,7 @@ const PostForm = ({ create }) => {
     if (post.title == false || post.body == false) {
       return 0
     }
-    const newPost = await PostService.createPost(post)
-    create(newPost)
+    create(post)
     setPost({ title: '', body: '' })
   }
 

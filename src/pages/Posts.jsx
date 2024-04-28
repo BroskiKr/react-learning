@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import '../styles/Page.css'
-import PostList from "../components/PostList";
-import PostForm from "../components/PostForm";
-import PostFilter from "../components/PostFilter";
+import PostList from "../components/PostsComp/PostList";
+import PostForm from "../components/PostsComp/PostForm";
+import PostFilter from "../components/PostsComp/PostFilter";
 import MyModal from "../components/Ui/MyModal/MyModal";
 import MyButton from "../components/Ui/button/MyButton";
-import { usePosts } from "../hooks/usePosts";
+import { usePosts } from "../hooks/useSortPosts";
 import PostService from "../API/PostService";
 import Loader from "../components/Ui/Loader/Loader";
 import { useFetching } from "../hooks/useFetching";
@@ -39,12 +39,14 @@ function Posts() {
     fetchPosts(limit, page)
   }, [page, limit])
 
-  const createPost = async (newPost) => {
-    await setPosts([...posts, newPost])
+  const createPost = async (post) => {
+    const newPost = await PostService.createPost(post)
+    setPosts([...posts, newPost])
     setModal(false)
   }
 
-  const removePost = (post) => {
+  const removePost = async (post) => {
+    await PostService.deletePost(post.id)
     setPosts(posts.filter(p => p.id !== post.id))
   }
 
@@ -56,7 +58,7 @@ function Posts() {
 
   return (
     <div className="App">
-      <MyButton style={{ marginTop: 5 }} onClick={() => setModal(true)}>Створити користувача</MyButton>
+      <MyButton style={{ marginTop: 5 }} onClick={() => setModal(true)}>Створити пост</MyButton>
       <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
       </MyModal>
@@ -74,7 +76,7 @@ function Posts() {
           { value: -1, name: 'Показати всі' }
         ]} />
       {postError && <h1 style={{ fontSize: 50, textAlign: 'center', margin: '15px 0 15px 0' }} >Сталася помилка: {postError}</h1>}
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Пости про js' />
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Список постів' />
       <div ref={lastPageEl} style={{ height: 10, visibility: 'hidden' }}></div>
       {isPostsLoading && <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>}
       <Pagination setFilter={setFilter} totalPages={totalPages} page={page} changePage={changePage} />

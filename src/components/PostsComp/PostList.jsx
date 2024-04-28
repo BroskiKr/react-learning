@@ -1,4 +1,3 @@
-import React from "react";
 import PostItem from "./PostItem";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
@@ -6,7 +5,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 const PostList = ({ posts, title, remove }) => {
   if (!posts.length) {
     return (
-      <h1 style={{ textAlign: 'center', fontSize: '36px', fontWeight: '700' }}>Користувача не знайдені</h1>
+      <h1 style={{ textAlign: 'center', fontSize: '36px', fontWeight: '700' }}>Пости не знайдені</h1>
     )
   }
 
@@ -20,7 +19,7 @@ const PostList = ({ posts, title, remove }) => {
             timeout={500}
             classNames="post"
           >
-            <PostItem remove={remove} number={index + 1} post={post} />
+            <PostItem remove={remove} post={post} />
           </CSSTransition>
         )}
       </TransitionGroup>

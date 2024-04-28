@@ -17,6 +17,7 @@ const Navbar = (props) => {
         <Link className={styles.navbar__link} to=''>Home</Link>
         <Link className={styles.navbar__link} to='/about'>Про нас</Link>
         <Link className={styles.navbar__link} to='/posts'>Список постів</Link>
+        <Link className={styles.navbar__link} to='/users'>Список користувачів</Link>
       </div>
       {isAuth && <MyButton onClick={logout}>
         Вийти
