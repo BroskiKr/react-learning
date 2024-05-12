@@ -10,6 +10,7 @@ const Navbar = (props) => {
   const logout = () => {
     setIsAuth(false)
     setToken('')
+    localStorage.removeItem('access_token')
   }
   return (
     <div className={styles.navbar}>

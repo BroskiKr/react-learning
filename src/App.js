@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Navbar from "./components/Ui/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
 import { AuthContext } from "./context";
+import PostService from "./API/PostService";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false)
@@ -11,6 +12,20 @@ function App() {
   const [token, setToken] = useState('')
 
   useEffect(() => {
+    async function verifyToken() {
+      if (localStorage.getItem('access_token')) {
+        try {
+          const storageToken = JSON.parse(localStorage.getItem('access_token'))
+          await PostService.getById(1, storageToken)
+          setIsAuth(true)
+          setToken(storageToken)
+        } catch (e) {
+          console.log(e);
+          localStorage.removeItem('access_token')
+        }
+      }
+    }
+    verifyToken()
     setIsLoading(false)
   }, [])
 

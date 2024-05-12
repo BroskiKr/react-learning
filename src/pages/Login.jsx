@@ -21,6 +21,7 @@ const Login = (props) => {
         const access_token = loginResponse.data
         if (access_token) {
           setToken(access_token)
+          localStorage.setItem('access_token', JSON.stringify(access_token))
           setIsAuth(true)
           setCredentials({ username: '', password: '' })
         }
@@ -30,7 +31,6 @@ const Login = (props) => {
       setLoginError(true)
       setCredentials({ username: '', password: '' })
     }
-    // localStorage.setItem('auth', 'true')
   }
 
   return (
