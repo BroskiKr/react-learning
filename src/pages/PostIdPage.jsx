@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PostService from "../API/PostService";
 import { useFetching } from "../hooks/useFetching";
 import Loader from "../components/Ui/Loader/Loader";
+import { AuthContext } from "../context";
 
 const PostIdPage = () => {
   const params = useParams()
   const [post, setPost] = useState({})
   const [comments, setComments] = useState([])
 
-
+  const { token } = useContext(AuthContext)
   const [fetchPostById, isLoading, error] = useFetching(async (id) => {
-    const response = await PostService.getById(id)
+    const response = await PostService.getById(id, token)
     setPost(response.data)
   })
 

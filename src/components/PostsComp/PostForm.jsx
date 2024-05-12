@@ -10,7 +10,7 @@ const PostForm = ({ create }) => {
     if (post.title == false || post.body == false) {
       return 0
     }
-    create(post)
+    await create(post)
     setPost({ title: '', body: '' })
   }
 

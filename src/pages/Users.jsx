@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import UserService from "../API/UserService"
 import { useFetching } from "../hooks/useFetching";
 import { getPageCount } from "../utils/pages";
@@ -11,6 +11,7 @@ import Loader from "../components/Ui/Loader/Loader";
 import Pagination from "../components/Ui/Pagination/Pagination";
 import MySelect from "../components/Ui/select/MySelect";
 import UserList from "../components/UsersComp/UserList"
+import { AuthContext } from "../context";
 
 const Users = () => {
   const [users, setUsers] = useState([])
@@ -20,10 +21,12 @@ const Users = () => {
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
 
+  const { token } = useContext(AuthContext)
+
   const lastPageEl = useRef()
 
   const [fetchUsers, isUsersLoading, userError] = useFetching(async (limit, page) => {
-    const response = await UserService.getAll(limit, page);
+    const response = await UserService.getAll(token, limit, page);
     setUsers([...users, ...response.data])
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit))
@@ -34,13 +37,13 @@ const Users = () => {
   }, [page, limit])
 
   const createUser = async (user) => {
-    const newUser = await UserService.createUser(user)
+    const newUser = await UserService.createUser(user, token)
     setUsers([...users, newUser])
     setModal(false)
   }
 
   const removeUser = async (user) => {
-    await UserService.deleteUser(user.id)
+    await UserService.deleteUser(user.id, token)
     setUsers(users.filter(u => u.id !== user.id))
   }
 

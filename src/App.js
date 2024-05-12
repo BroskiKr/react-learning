@@ -8,18 +8,19 @@ import { AuthContext } from "./context";
 function App() {
   const [isAuth, setIsAuth] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [token, setToken] = useState('')
 
   useEffect(() => {
-    if (localStorage.getItem('auth')) {
-      setIsAuth(true)
-    }
     setIsLoading(false)
   }, [])
+
   return (
     <AuthContext.Provider value={{
       isAuth,
       setIsAuth,
-      isLoading
+      isLoading,
+      token,
+      setToken
     }}>
       <BrowserRouter>
         <Navbar />

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import '../styles/Page.css'
 import PostList from "../components/PostsComp/PostList";
 import PostForm from "../components/PostsComp/PostForm";
@@ -13,6 +13,7 @@ import { getPageCount } from "../utils/pages";
 import Pagination from "../components/Ui/Pagination/Pagination";
 import { useObserver } from "../hooks/useObserver";
 import MySelect from "../components/Ui/select/MySelect";
+import { AuthContext } from "../context";
 
 function Posts() {
   const [posts, setPosts] = useState([])
@@ -22,10 +23,12 @@ function Posts() {
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
 
+  const { token } = useContext(AuthContext)
+
   const lastPageEl = useRef()
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
-    const response = await PostService.getAll(limit, page);
+    const response = await PostService.getAll(token, limit, page);
     setPosts([...posts, ...response.data])
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit))
@@ -40,13 +43,13 @@ function Posts() {
   }, [page, limit])
 
   const createPost = async (post) => {
-    const newPost = await PostService.createPost(post)
+    const newPost = await PostService.createPost(post, token)
     setPosts([...posts, newPost])
     setModal(false)
   }
 
   const removePost = async (post) => {
-    await PostService.deletePost(post.id)
+    await PostService.deletePost(post.id, token)
     setPosts(posts.filter(p => p.id !== post.id))
   }
 

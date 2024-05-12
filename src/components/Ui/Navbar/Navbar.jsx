@@ -5,11 +5,11 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../context';
 
 const Navbar = (props) => {
-  const { isAuth, setIsAuth } = useContext(AuthContext)
+  const { isAuth, setIsAuth, setToken } = useContext(AuthContext)
 
   const logout = () => {
     setIsAuth(false)
-    localStorage.removeItem('auth')
+    setToken('')
   }
   return (
     <div className={styles.navbar}>
