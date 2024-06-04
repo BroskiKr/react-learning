@@ -6,15 +6,15 @@ export default class LoginService {
     return access_token
   }
 
-  static async loginGoogle() {
+  static async getGoogleLoginUrl() {
     const response = await axios.get('http://127.0.0.1:8000/login/google')
     const url = response.data.url
     return url
   }
 
-  static async getGoogleInfo(code) {
+  static async googleLogin(code) {
     const response = await axios.get(`http://127.0.0.1:8000/auth/google?code=${code}`);
-    const userInfo = response.data;
-    return userInfo
+    const token = response.data;
+    return token
   }
 }

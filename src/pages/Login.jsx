@@ -4,7 +4,6 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context";
 import LoginService from "../API/LoginService";
 import { getFormData } from "../utils/formData";
-import axios from "axios";
 
 const Login = (props) => {
   const { setIsAuth, setToken } = useContext(AuthContext);
@@ -36,7 +35,7 @@ const Login = (props) => {
 
   useEffect(() => {
     async function getUrl() {
-      setUrl(await LoginService.loginGoogle())
+      setUrl(await LoginService.getGoogleLoginUrl())
     }
     getUrl()
   }, [])
@@ -49,9 +48,10 @@ const Login = (props) => {
 
       if (code) {
         try {
-          const userInfo = await LoginService.getGoogleInfo(code)
-          console.log(userInfo)
-          if (userInfo) {
+          const token = await LoginService.googleLogin(code)
+          if (token) {
+            setToken(token)
+            localStorage.setItem('access_token', JSON.stringify(token))
             setIsAuth(true)
           }
         } catch (error) {
