@@ -27,7 +27,13 @@ const Users = () => {
 
   const [fetchUsers, isUsersLoading, userError] = useFetching(async (limit, page) => {
     const response = await UserService.getAll(token, limit, page);
-    setUsers([...users, ...response.data])
+    setUsers(() => {
+      const responseUsers = response.data
+      for (let i = 1; i <= responseUsers.length; i++) {
+        responseUsers[i - 1].number = i
+      }
+      return [...users, ...responseUsers]
+    })
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit))
   })
@@ -38,6 +44,7 @@ const Users = () => {
 
   const createUser = async (user) => {
     const newUser = await UserService.createUser(user, token)
+    newUser.number = users[users.length - 1].number + 1
     setUsers([...users, newUser])
     setModal(false)
   }
