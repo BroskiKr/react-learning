@@ -29,6 +29,18 @@ function App() {
     setIsLoading(false)
   }, [])
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.setItem('currentPath', window.location.pathname);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <AuthContext.Provider value={{
       isAuth,
