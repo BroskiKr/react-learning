@@ -14,7 +14,7 @@ export default class PostService {
     return response;
   }
   static async deletePost(id, token) {
-    const deleteQuery = await axios.delete('http://127.0.0.1:8000/posts/' + id,
+    await axios.delete('http://127.0.0.1:8000/posts/' + id,
       { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } })
   }
 
@@ -25,7 +25,6 @@ export default class PostService {
   }
 
   static async createPost(post, token) {
-    post.owner_id = 1
     const response = await axios.post('http://127.0.0.1:8000/posts', post,
       { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } })
     post = response.data

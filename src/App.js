@@ -20,14 +20,28 @@ function App() {
           setIsAuth(true)
           setToken(storageToken)
         } catch (e) {
-          console.log(e);
           localStorage.removeItem('access_token')
         }
       }
     }
     verifyToken()
     setIsLoading(false)
+    localStorage.removeItem('currentPath')
   }, [])
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (window.location.pathname != '/login') {
+        localStorage.setItem('currentPath', window.location.pathname);
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <AuthContext.Provider value={{
