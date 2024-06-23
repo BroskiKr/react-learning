@@ -11,6 +11,7 @@ const Navbar = (props) => {
     setIsAuth(false)
     setToken('')
     localStorage.removeItem('access_token')
+    localStorage.removeItem('currentPath')
   }
   return (
     <div className={styles.navbar}>
