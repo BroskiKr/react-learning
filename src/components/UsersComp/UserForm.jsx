@@ -15,7 +15,7 @@ const UserForm = ({ create }) => {
       return 0
     }
     await create(user)
-    setUser({ first_name: '', last_name: '', password: '' })
+    setUser({ first_name: '', last_name: '', password: '', email: '' })
   }
 
   return (

@@ -3,7 +3,13 @@ import axios from "axios";
 export default class UserService {
   static async getAll(token, limit = 10, page = 1) {
     const response = await axios.get('http://127.0.0.1:8000/users',
-      { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } })
+      {
+        headers: { 'Authorization': `${token.token_type} ${token.access_token}` },
+        params: {
+          limit: limit,
+          page: page,
+        }
+      })
     return response;
   }
   static async deleteUser(id, token) {

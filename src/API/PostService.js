@@ -2,15 +2,13 @@ import axios from "axios";
 
 export default class PostService {
   static async getAll(token, limit = 10, page = 1) {
-    const response = await axios.get('http://127.0.0.1:8000/posts',
-      { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } }
-      // {
-      //   params: {
-      //     _limit: limit,
-      //     _page: page,
-      //   }
-      // }
-    )
+    const response = await axios.get('http://127.0.0.1:8000/posts', {
+      headers: { 'Authorization': `${token.token_type} ${token.access_token}` },
+      params: {
+        limit: limit,
+        page: page,
+      }
+    });
     return response;
   }
   static async deletePost(id, token) {
@@ -36,4 +34,12 @@ export default class PostService {
     return response;
   }
 
+  static async generatePosts(token) {
+    console.log(token)
+    console.log('we are in postService')
+    const response = await axios.post('http://127.0.0.1:8000/posts/autogenerate',
+      { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } }
+    )
+    return response;
+  }
 }

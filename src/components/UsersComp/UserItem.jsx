@@ -1,10 +1,10 @@
 import MyButton from "../Ui/button/MyButton";
 
-const UserItem = ({ user, remove }) => {
+const UserItem = ({ user, remove, index }) => {
   return (
     <div className="post">
       <div className="post__content">
-        <strong >{user.number}. {user.first_name} {user.last_name}</strong>
+        <strong >{index + 1}. {user.first_name} {user.last_name}</strong>
       </div>
       <div className="post__btns">
         <MyButton onClick={() => remove(user)}>Delete</MyButton>

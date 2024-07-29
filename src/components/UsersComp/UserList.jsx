@@ -19,7 +19,7 @@ const UserList = ({ users, title, remove }) => {
             timeout={500}
             classNames="post"
           >
-            <UserItem remove={remove} user={user} />
+            <UserItem remove={remove} user={user} index={index} />
           </CSSTransition>
         )}
       </TransitionGroup>

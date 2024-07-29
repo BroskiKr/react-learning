@@ -8,18 +8,17 @@ import UserForm from "../components/UsersComp/UserForm";
 import UserFilter from "../components/UsersComp/UserFilter";
 import MyButton from "../components/Ui/button/MyButton";
 import Loader from "../components/Ui/Loader/Loader";
-import Pagination from "../components/Ui/Pagination/Pagination";
-import MySelect from "../components/Ui/select/MySelect";
 import UserList from "../components/UsersComp/UserList"
 import { AuthContext } from "../context";
+import { useObserver } from "../hooks/useObserver";
 
 const Users = () => {
   const [users, setUsers] = useState([])
   const [filter, setFilter] = useState({ sort: '', query: '' })
   const [modal, setModal] = useState(false)
   const [totalPages, setTotalPages] = useState(0)
-  const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
+  const limit = 10
 
   const { token } = useContext(AuthContext)
 
@@ -29,9 +28,6 @@ const Users = () => {
     const response = await UserService.getAll(token, limit, page);
     setUsers(() => {
       const responseUsers = response.data
-      for (let i = 1; i <= responseUsers.length; i++) {
-        responseUsers[i - 1].number = i
-      }
       return [...users, ...responseUsers]
     })
     const totalCount = response.headers['x-total-count']
@@ -40,11 +36,14 @@ const Users = () => {
 
   useEffect(() => {
     fetchUsers(limit, page)
-  }, [page, limit])
+  }, [page])
+
+  useObserver(lastPageEl, page < totalPages, isUsersLoading, () => {
+    setPage(page + 1)
+  })
 
   const createUser = async (user) => {
     const newUser = await UserService.createUser(user, token)
-    newUser.number = users[users.length - 1].number + 1
     setUsers([...users, newUser])
     setModal(false)
   }
@@ -68,21 +67,10 @@ const Users = () => {
       </MyModal>
       <hr style={{ margin: '15px 0' }} />
       <UserFilter filter={filter} setFilter={setFilter} />
-      <h3 style={{ marginTop: 7, fontSize: 16 }}>Кількість елементів на сторінці</h3>
-      <MySelect
-        value={limit}
-        onChange={(value) => setLimit(value)}
-        options={[
-          { value: 5, name: '5' },
-          { value: 10, name: '10' },
-          { value: 25, name: '25' },
-          { value: -1, name: 'Показати всі' }
-        ]} />
       {userError && <h1 style={{ fontSize: 50, textAlign: 'center', margin: '15px 0 15px 0' }} >Сталася помилка: {userError}</h1>}
       <UserList remove={removeUser} users={sortedAndSearchedUsers} title='Список користувачів' />
       <div ref={lastPageEl} style={{ height: 10, visibility: 'hidden' }}></div>
       {isUsersLoading && <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>}
-      <Pagination setFilter={setFilter} totalPages={totalPages} page={page} changePage={changePage} />
     </div >
   );
 }
