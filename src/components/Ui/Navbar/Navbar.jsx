@@ -1,18 +1,12 @@
 import { Link } from 'react-router-dom'
 import styles from './Navbar.module.css';
-import MyButton from '../button/MyButton';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context';
+import UserMenu from '../../UserMenu/UserMenu';
 
-const Navbar = (props) => {
-  const { isAuth, setIsAuth, setToken } = useContext(AuthContext)
+const Navbar = () => {
+  const { isAuth } = useContext(AuthContext)
 
-  const logout = () => {
-    setIsAuth(false)
-    setToken('')
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('currentPath')
-  }
   return (
     <div className={styles.navbar}>
       <div className={styles.navbar__links}>
@@ -21,9 +15,7 @@ const Navbar = (props) => {
         <Link className={styles.navbar__link} to='/posts'>Список постів</Link>
         <Link className={styles.navbar__link} to='/users'>Список користувачів</Link>
       </div>
-      {isAuth && <MyButton onClick={logout}>
-        Вийти
-      </MyButton>}
+      {isAuth && <UserMenu />}
     </div>
   );
 }

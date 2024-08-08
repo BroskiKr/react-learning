@@ -17,7 +17,7 @@ export default class UserService {
       { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } })
   }
 
-  static async getById(id, token) {
+  static async getById(token, id = 'current') {
     const response = await axios.get('http://127.0.0.1:8000/users/' + id,
       { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } })
     return response;

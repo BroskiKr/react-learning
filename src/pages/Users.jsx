@@ -53,10 +53,6 @@ const Users = () => {
     setUsers(users.filter(u => u.id !== user.id))
   }
 
-  const changePage = (p) => {
-    setPage(p)
-  }
-
   const sortedAndSearchedUsers = useUsers(users, filter.sort, filter.query);
 
   return (

@@ -1,0 +1,12 @@
+.profile{
+  width: 700px;
+  padding: 30px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 34px;
+}
+
+.profile > *{
+  margin-bottom: 10px;
+}
