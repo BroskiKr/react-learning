@@ -47,7 +47,7 @@ function Posts() {
 
   const createPost = async (post) => {
     const newPost = await PostService.createPost(post, token)
-    setPosts([...posts, newPost])
+    setPosts([newPost, ...posts])
     setModal(false)
   }
 
@@ -61,7 +61,7 @@ function Posts() {
     console.log('we are in posts page')
     const response = await PostService.generatePosts(token)
     const generatedPosts = response.data
-    setPosts([...posts, ...generatedPosts])
+    setPosts([...generatedPosts, ...posts])
   }
 
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);

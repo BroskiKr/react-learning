@@ -19,18 +19,20 @@ const UserProfile = (props) => {
 
   useEffect(() => {
     fetchUser()
-    console.log(user);
-
   }, [])
 
   return (
     <div className="profile">
-      <img className='profile-image' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtuphMb4mq-EcVWhMVT8FCkv5dqZGgvn_QiA&s" alt="" />
-      <div>Last name: {user.last_name}</div>
-      <div>First name: {user.first_name}</div>
-      <div>Email: {user.email}</div>
-      <div>Registered: {user.created_at?.slice(0, 10)}</div>
-      {isUserLoading && <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>}
+      {isUserLoading ?
+        (<div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>)
+        : (<>
+          <img className='profile-image' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtuphMb4mq-EcVWhMVT8FCkv5dqZGgvn_QiA&s" alt="" />
+          <div>Last name: {user.last_name}</div>
+          <div>First name: {user.first_name}</div>
+          <div>Email: {user.email}</div>
+          <div>Registered: {user.created_at?.slice(0, 10)}</div>
+        </>)
+      }
     </div>
   );
 }
