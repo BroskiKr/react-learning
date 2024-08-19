@@ -7,3 +7,9 @@
   cursor: pointer;
   margin-right: 2px;
 }
+
+.myBtn:disabled {
+  color:lightgrey;
+  border: 1px solid lightgray;
+  cursor: not-allowed;
+}

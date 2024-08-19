@@ -21,6 +21,7 @@ function Posts() {
   const [totalPages, setTotalPages] = useState(0)
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
+  const [buttonIsDisable, setButtonIsDisable] = useState(false)
 
   const { token } = useContext(AuthContext)
 
@@ -60,8 +61,9 @@ function Posts() {
     console.log(token)
     console.log('we are in posts page')
     const response = await PostService.generatePosts(token)
-    const generatedPosts = response.data
-    setPosts([...generatedPosts, ...posts])
+    if (response.status === 202) {
+      setButtonIsDisable(true)
+    }
   }
 
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
@@ -69,7 +71,7 @@ function Posts() {
   return (
     <div className="App">
       <MyButton style={{ marginTop: 5 }} onClick={() => setModal(true)}>Створити пост</MyButton>
-      <MyButton style={{ margin: '5px 0 0 20px', }} onClick={() => generatePosts()} >Автоматично згенерувати пости</MyButton>
+      <MyButton style={{ margin: '5px 0 0 20px' }} onClick={() => generatePosts()} disabled={buttonIsDisable}>Автоматично згенерувати пости</MyButton>
       <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
       </MyModal>

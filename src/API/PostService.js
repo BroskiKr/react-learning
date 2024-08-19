@@ -37,7 +37,7 @@ export default class PostService {
   static async generatePosts(token) {
     console.log(token)
     console.log('we are in postService')
-    const response = await axios.post('http://127.0.0.1:8000/posts/autogenerate',
+    const response = await axios.post('http://127.0.0.1:8000/autogenerate', {},
       { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } }
     )
     return response;
