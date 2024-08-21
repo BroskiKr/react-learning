@@ -58,8 +58,6 @@ function Posts() {
   }
 
   const generatePosts = async () => {
-    console.log(token)
-    console.log('we are in posts page')
     const response = await PostService.generatePosts(token)
     if (response.status === 202) {
       setButtonIsDisable(true)

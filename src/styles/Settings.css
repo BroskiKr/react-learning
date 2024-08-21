@@ -1,0 +1,55 @@
+.settings {
+  width: 800px;
+  min-height: 70vh;
+  margin-top: 50px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.settings h1 {
+  text-align: center; 
+  font-size: 40px;
+  margin-bottom: 14px;
+}
+
+
+.feature{
+  font-size: 18px;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.settings-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.settings-button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.settings-button:active {
+  background-color: #388e3c;
+  transform: translateY(0);
+}
+
+.settings-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

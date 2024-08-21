@@ -61,3 +61,10 @@ select{
 	display: flex;
 }
 
+.post__content{
+	text-align: justify;
+	margin-right: 10px;
+}
+
+
+

@@ -35,10 +35,23 @@ export default class PostService {
   }
 
   static async generatePosts(token) {
-    console.log(token)
-    console.log('we are in postService')
     const response = await axios.post('http://127.0.0.1:8000/autogenerate', {},
       { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } }
+    )
+    return response;
+  }
+
+  static async dailyGeneratingPosts(topic, token) {
+    const params = {}
+    if (topic !== null) {
+      params.topic = topic
+    }
+
+    const response = await axios.post('http://127.0.0.1:8000/autogenerate/daily', {},
+      {
+        headers: { 'Authorization': `${token.token_type} ${token.access_token}` },
+        params: params
+      }
     )
     return response;
   }
