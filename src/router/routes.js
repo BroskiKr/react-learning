@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Users from "../pages/Users";
 import UserProfile from "../pages/UserProfile";
 import Settings from "../pages/Settings";
+import Register from "../pages/Register";
 
 
 export const privateRoutes = [
@@ -22,4 +23,5 @@ export const privateRoutes = [
 
 export const publicRoutes = [
   { path: '/login', component: <Login /> },
+  { path: '/register', component: <Register /> },
 ]

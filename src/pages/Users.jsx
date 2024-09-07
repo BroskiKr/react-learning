@@ -43,7 +43,8 @@ const Users = () => {
   })
 
   const createUser = async (user) => {
-    const newUser = await UserService.createUser(user, token)
+    const response = await UserService.registerUser(user)
+    const newUser = response.data
     setUsers([...users, newUser])
     setModal(false)
   }

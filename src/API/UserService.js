@@ -23,10 +23,8 @@ export default class UserService {
     return response;
   }
 
-  static async createUser(user, token) {
-    const response = await axios.post('http://127.0.0.1:8000/users', user,
-      { headers: { 'Authorization': `${token.token_type} ${token.access_token}` } })
-    user = response.data
-    return user
+  static async registerUser(user) {
+    const response = await axios.post('http://127.0.0.1:8000/users', user)
+    return response
   }
 }

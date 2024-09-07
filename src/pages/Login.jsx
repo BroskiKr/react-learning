@@ -4,6 +4,8 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context";
 import LoginService from "../API/LoginService";
 import { getFormData } from "../utils/formData";
+import { Link } from "react-router-dom";
+import '../styles/Auth.css';
 
 const Login = (props) => {
   const { setIsAuth, setToken } = useContext(AuthContext);
@@ -64,17 +66,30 @@ const Login = (props) => {
   }, []);
 
   return (
-    <div style={{ width: 400 }}>
-      <h1 style={{ fontSize: 30, fontWeight: 'bold' }}>Вхід</h1>
-      <form>
-        <MyInput onChange={e => setCredentials({ ...credentials, username: e.target.value })} value={credentials.username} type="text" placeholder='Введіть логін' />
-        <MyInput onChange={e => setCredentials({ ...credentials, password: e.target.value })} value={credentials.password} type="password" placeholder='Введіть пароль' />
-        {loginError && <div style={{ color: 'red', fontSize: '16px', paddingBottom: 5 }}>Invalid credentials.Try again</div>}
-        <MyButton onClick={(e) => login(e)}>Увійти</MyButton>
-      </form>
-      <a href={url} style={{ fontSize: 18, fontWeight: 'bold', display: 'flex', marginTop: '7px', alignItems: 'center', width: 120, justifyContent: 'space-between', }}>Login with <img style={{ display: 'block', width: 25, height: 25 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png" alt="Опис картинки" />
-      </a>
-    </div >
+    <div className="container">
+      <div className="content">
+        <div className="routes">
+          <span className="route_active">Вхід</span>
+          <span> / </span>
+          <Link to='/register'>Реєстрація</Link>
+        </div>
+        <form>
+          <label for="username">Логін</label>
+          <MyInput id="username" onChange={e => setCredentials({ ...credentials, username: e.target.value })} value={credentials.username} type="text" placeholder='Введіть логін' />
+          <label for="pass">Пароль</label>
+          <MyInput id="pass" onChange={e => setCredentials({ ...credentials, password: e.target.value })} value={credentials.password} type="password" placeholder='Введіть пароль' />
+          {loginError && <div className="error">Invalid credentials.Try again</div>}
+          <MyButton style={{ width: '100%', margin: '3px 0 11px 0', padding: '10px 0' }} onClick={(e) => login(e)}>Увійти</MyButton>
+        </form>
+        <div>
+          <div className="divider"><span>або</span></div>
+          <a href={url} className="social_link">
+            <img style={{ display: 'block', width: 20, height: 20, marginRight: 5 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png" alt="Опис картинки" />
+            <span>Google</span>
+          </a>
+        </div>
+      </div >
+    </div>
   );
 }
 

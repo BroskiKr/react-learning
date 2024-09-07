@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     const handleBeforeUnload = () => {
-      if (window.location.pathname != '/login') {
+      if (window.location.pathname != '/login' && window.location.pathname != '/register') {
         localStorage.setItem('currentPath', window.location.pathname);
       }
     };
@@ -52,7 +52,7 @@ function App() {
       setToken
     }}>
       <BrowserRouter>
-        <Navbar />
+        {isAuth && <Navbar />}
         <AppRouter />
       </BrowserRouter>
     </AuthContext.Provider>

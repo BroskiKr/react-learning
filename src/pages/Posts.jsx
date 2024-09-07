@@ -28,23 +28,28 @@ function Posts() {
   const lastPageEl = useRef()
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
+    if (limit < 0) {
+      page = 1
+    }
     const response = await PostService.getAll(token, limit, page);
-    setPosts(() => {
-      const responsePosts = response.data
-      return [...posts, ...responsePosts]
-    })
+    const responsePosts = response.data
+    setPosts(prevPosts => page === 1 ? responsePosts : [...prevPosts, ...responsePosts]);
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit))
   })
 
   useObserver(lastPageEl, page < totalPages, isPostsLoading, () => {
-    setPage(page + 1)
+    if (posts.length > 0) setPage(prevPage => prevPage + 1)
   })
 
 
   useEffect(() => {
-    fetchPosts(limit, page)
-  }, [page, limit])
+    if (page == 0) {
+      setPage(1)
+    } else {
+      fetchPosts(limit, page)
+    }
+  }, [page])
 
   const createPost = async (post) => {
     const newPost = await PostService.createPost(post, token)
@@ -79,7 +84,11 @@ function Posts() {
       >Кількість елементів на сторінці</h3>
       <MySelect
         value={limit}
-        onChange={(value) => setLimit(value)}
+        onChange={(value) => {
+          setLimit(value)
+          setPosts([])
+          setPage(0)
+        }}
         options={[
           { value: 5, name: '5' },
           { value: 10, name: '10' },

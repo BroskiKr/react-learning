@@ -5,7 +5,7 @@ import MyInput from '../Ui/input/MyInput'
 const PostFilter = ({ filter, setFilter }) => {
   return (
     <div>
-      <MyInput onChange={e => setFilter({ ...filter, query: e.target.value })} value={filter.query} placeholder='Пошук...' />
+      <MyInput style={{ padding: '7px 10px', width: '380px' }} onChange={e => setFilter({ ...filter, query: e.target.value })} value={filter.query} placeholder='Пошук...' />
       <MySelect
         value={filter.sort}
         onChange={selectedSort => setFilter({ ...filter, sort: selectedSort })}

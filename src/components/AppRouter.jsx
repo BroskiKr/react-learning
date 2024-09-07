@@ -27,6 +27,7 @@ const AppRouter = (props) => {
           <Route key={route.path} path={route.path} element={route.component} />
         )}
         <Route path="/login" element={<Navigate to={urlBeforeUnload} replace />} />
+        <Route path="/register" element={<Navigate to={urlBeforeUnload} replace />} />
       </Routes >
       :
       <Routes >

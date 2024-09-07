@@ -13,7 +13,7 @@ const PostItem = ({ post, remove, index }) => {
         </div>
       </div>
       <div className="post__btns">
-        <MyButton onClick={() => router(`/posts/${post.id}`)}>Open</MyButton>
+        <MyButton style={{ marginRight: 4 }} onClick={() => router(`/posts/${post.id}`)}>Open</MyButton>
         <MyButton onClick={() => remove(post)}>Delete</MyButton>
       </div>
     </div>

@@ -20,7 +20,7 @@ const Settings = (props) => {
 
   return (
     <div className="settings">
-      <h1 >Settings</h1>
+      <h1 >Налаштування</h1>
       <div className="feature">
         <span style={{ marginRight: 8 }}>Автоматично генерувати пости кожен день:</span>
         <MySelect
