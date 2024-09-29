@@ -43,10 +43,15 @@ const Users = () => {
   })
 
   const createUser = async (user) => {
-    const response = await UserService.registerUser(user)
-    const newUser = response.data
-    setUsers([...users, newUser])
-    setModal(false)
+    try {
+      const response = await UserService.registerUser(user)
+      const newUser = response.data
+      setUsers([...users, newUser])
+      setModal(false)
+      return response
+    } catch (error) {
+      return error.response
+    }
   }
 
   const removeUser = async (user) => {
@@ -60,7 +65,7 @@ const Users = () => {
     <div className="App">
       <MyButton style={{ marginTop: 5 }} onClick={() => setModal(true)}>Створити користувача</MyButton>
       <MyModal visible={modal} setVisible={setModal}>
-        <UserForm create={createUser} />
+        <UserForm register={createUser} />
       </MyModal>
       <hr style={{ margin: '15px 0' }} />
       <UserFilter filter={filter} setFilter={setFilter} />

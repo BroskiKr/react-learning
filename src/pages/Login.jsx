@@ -74,9 +74,9 @@ const Login = (props) => {
           <Link to='/register'>Реєстрація</Link>
         </div>
         <form>
-          <label for="username">Логін</label>
+          <label htmlFor="username">Логін</label>
           <MyInput id="username" onChange={e => setCredentials({ ...credentials, username: e.target.value })} value={credentials.username} type="text" placeholder='Введіть логін' />
-          <label for="pass">Пароль</label>
+          <label htmlFor="pass">Пароль</label>
           <MyInput id="pass" onChange={e => setCredentials({ ...credentials, password: e.target.value })} value={credentials.password} type="password" placeholder='Введіть пароль' />
           {loginError && <div className="error">Invalid credentials.Try again</div>}
           <MyButton style={{ width: '100%', margin: '3px 0 11px 0', padding: '10px 0' }} onClick={(e) => login(e)}>Увійти</MyButton>

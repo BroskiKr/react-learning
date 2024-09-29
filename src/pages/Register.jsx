@@ -31,11 +31,12 @@ const Register = (props) => {
   const registerUser = async (user) => {
     try {
       const response = await UserService.registerUser(user)
+      const userCredentials = { username: user.last_name, password: user.password }
+      await login(userCredentials)
+      return response
     } catch (error) {
       return error.response
     }
-    const userCredentials = { username: user.last_name, password: user.password }
-    await login(userCredentials)
   }
 
   return (
