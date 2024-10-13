@@ -31,7 +31,7 @@ const Register = (props) => {
   const registerUser = async (user) => {
     try {
       const response = await UserService.registerUser(user)
-      const userCredentials = { username: user.last_name, password: user.password }
+      const userCredentials = { username: user.email, password: user.password }
       await login(userCredentials)
       return response
     } catch (error) {
