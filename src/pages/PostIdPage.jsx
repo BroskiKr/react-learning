@@ -27,7 +27,7 @@ const PostIdPage = () => {
   }, [])
   return (
     <div style={{ fontSize: '25px', marginTop: '20px', width: 900 }}>
-      <h1 style={{ fontWeight: 'bold' }}>Ви відкрили сторінку поста :</h1>
+      <h1 style={{ fontWeight: 'bold', marginBottom: 5 }}>Ви відкрили сторінку поста :</h1>
       {isLoading
         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
         : <div >{post.id}. {post.title}</div>

@@ -20,6 +20,7 @@ const UserForm = ({ register, style }) => {
       setError(true)
     }
     setUser({ first_name: '', last_name: '', password: '', email: '' })
+    setError(false)
   }
 
   return (

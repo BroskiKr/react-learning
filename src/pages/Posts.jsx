@@ -81,10 +81,11 @@ function Posts() {
       <hr style={{ margin: '15px 0' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
       <h3 style={{ marginTop: 7, fontSize: 16 }}
-      >Кількість елементів на сторінці</h3>
+      >Кількість нових елементів при скролі сторінки</h3>
       <MySelect
         value={limit}
         onChange={(value) => {
+          setFilter({ sort: '', query: '' })
           setLimit(value)
           setPosts([])
           setPage(0)

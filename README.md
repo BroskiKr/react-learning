@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a frontend application built with React that includes authentication page, user pages, and post pages. On the user and post pages, you can create, delete, search, and sort users and posts. The frontend interacts with a custom backend via an API.
+This project is a frontend application built with React that includes an authentication page, user pages, and post pages. On the user and post pages, you can create, delete, search, and sort users and posts. Additionally, the post page allows you to automatically generate posts and subscribe to receive new posts periodically. There is also a user profile page where users can view  their personal data. The frontend interacts with a custom backend via an API.
 
 ## Features
 
@@ -24,6 +24,8 @@ This project is a frontend application built with React that includes authentica
   - Delete a post
   - Search for posts
   - Sort the list of posts
+  - Generate posts automatically
+  - Subscribe to receive new posts periodically
 
 ## Installation and Setup
 
@@ -83,7 +85,4 @@ To run this project, you will need to have the following software installed:
 
 By default, the application interacts with the backend via an API. Make sure your backend is running and configured correctly. If you need to change the API settings, you can do so in the project's configuration files.
 
-## Support
-
-If you have any questions or issues, please create an issue in this repository or contact me via email: your.email@example.com
 

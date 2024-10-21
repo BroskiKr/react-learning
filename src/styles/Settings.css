@@ -28,7 +28,7 @@
 .settings-button {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #4CAF50;
+  background-color: #39773a;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -40,12 +40,12 @@
 }
 
 .settings-button:hover {
-  background-color: #45a049;
+  background-color: #3f8d42;
   transform: translateY(-2px);
 }
 
 .settings-button:active {
-  background-color: #388e3c;
+  background-color: #3a8d3e;
   transform: translateY(0);
 }
 
